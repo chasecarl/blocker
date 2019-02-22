@@ -1,29 +1,30 @@
 
 # works only for Windows for now
 HOSTS_PATH = r"C:\Windows\System32\drivers\etc\hosts"
+BLACKLIST_PATH = r"C:\Users\Andrey\OneDrive\cloudcbio\python\pomodoro\blocker\blacklist"
 
-BLACKLIST = [
-        "www.facebook.com",
-        "facebook.com",
-        "https://www.facebook.com",
-        "vk.com"
-        ]
 REDIRECT = "127.0.0.1"
 
+def load_blacklist():
+    with open(BLACKLIST_PATH, 'r') as file:
+        return file.readlines()
+
 def block():
+    blacklist = load_blacklist()
     with open(HOSTS_PATH, "r+") as file:
         content = file.read()
-        for website in BLACKLIST:
+        for website in blacklist:
             if website not in content:
                 # print(f"Blocking {website}...")
                 file.write(f"{REDIRECT} {website}\n")
             
 def unblock():
+    blacklist = load_blacklist()
     with open(HOSTS_PATH, "r+") as file:
         content = file.readlines()
         file.seek(0)
         for line in content:
-            if not any(website in line for website in BLACKLIST):
+            if not any(website in line for website in blacklist):
                 file.write(line)
         file.truncate()
 
