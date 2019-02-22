@@ -3,7 +3,10 @@
 HOSTS_PATH = r"C:\Windows\System32\drivers\etc\hosts"
 
 BLACKLIST = [
-        "www.facebook.com"
+        "www.facebook.com",
+        "facebook.com",
+        "https://www.facebook.com",
+        "vk.com"
         ]
 REDIRECT = "127.0.0.1"
 
