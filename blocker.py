@@ -32,8 +32,10 @@ def unblock():
     config.save_configuration(False)
 
 if __name__ == '__main__':
-    user_action = input("Block or unblock (b/u)?\n")
     is_blocked = config.load_configuration()
+    state = "blocked" if is_blocked else "unblocked" 
+    print(f"State: {state}")
+    user_action = input("Block or unblock (b/u)?\n")
     if user_action == 'b':
         if not is_blocked:
             block()
