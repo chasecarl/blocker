@@ -1,3 +1,4 @@
+import config
 
 # works only for Windows for now
 HOSTS_PATH = r"C:\Windows\System32\drivers\etc\hosts"
@@ -17,6 +18,7 @@ def block():
             if website not in content:
                 # print(f"Blocking {website}...")
                 file.write(f"{REDIRECT} {website}\n")
+    config.save_configuration(True)
             
 def unblock():
     blacklist = load_blacklist()
@@ -27,12 +29,16 @@ def unblock():
             if not any(website in line for website in blacklist):
                 file.write(line)
         file.truncate()
+    config.save_configuration(False)
 
 if __name__ == '__main__':
     user_action = input("Block or unblock (b/u)?\n")
+    is_blocked = config.load_configuration()
     if user_action == 'b':
-        block()
+        if not is_blocked:
+            block()
     elif user_action == 'u':
-        unblock()
+        if is_blocked:
+            unblock()
     else:
         print("Unknown command")
