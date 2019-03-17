@@ -17,7 +17,7 @@ def block():
         for website in blacklist:
             if website not in content:
                 # print(f"Blocking {website}...")
-                file.write(f"{REDIRECT} {website}\n")
+                file.write(f"{REDIRECT} {website}")
     config.save_configuration(True)
             
 def unblock():
