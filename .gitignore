@@ -1,2 +1,3 @@
 blacklist
 config.bin
+__pycache__/
